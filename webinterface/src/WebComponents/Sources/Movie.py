@@ -67,6 +67,9 @@ class Movie(Source):
 		tag = self.cmd['tag']
 		tag = tag and tag.lower()
 		for (serviceref, info, begin, unknown) in self.movielist.list:
+			if serviceref.flags & eServiceReference.mustDescent:
+				# skip subdirectories for now
+				continue
 			rtime = info.getInfo(serviceref, iServiceInformation.sTimeCreate)
 
 			if rtime > 0:
